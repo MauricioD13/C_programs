@@ -13,7 +13,7 @@ int main(){
     int *apuntadorB=&datoB;
     int *resultado=&res;
     agregar_valor(apuntadorA,apuntadorB,resultado);
-    cout<<"Resultado: "<<*resultado;  
+    cout<<"Resultado: "<<*resultado; 
     /*for(int i=0;i<5;i++){
         apuntador=&datos[i];
         cout<<"Apuntador: "<<apuntador<<"\t Valor: "<<*apuntador<<endl;
