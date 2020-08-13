@@ -30,7 +30,8 @@ int main(){
         fibonacci[i]=current_number;
         }
     }
-    for(int i=0;i<cantidad;i++){
-        cout<<fibonacci[i]<<"/";
-    }
+    cout<<"Desea agregar mas numeros? (1/0)"<<endl;
+    cin>>cantidad;
+    
+
 }

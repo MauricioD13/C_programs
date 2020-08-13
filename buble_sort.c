@@ -2,7 +2,7 @@
 
 int main(){
     int aux;
-    int vector[5]={6,2,8,3,1};
+    int vector[5]={8,2,6,3,1};
     int flag=1;
     while(flag>=1){
         for(int i=4;i>0;i--){
@@ -12,7 +12,7 @@ int main(){
                 vector[i]=vector[i-1];
                 vector[i-1]=aux;
                 flag=flag+1;
-            }if(flag==4){
+            }if(flag==9){
                 flag=0;
             }
         }

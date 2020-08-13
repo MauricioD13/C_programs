@@ -15,7 +15,7 @@ Dato *createNODE(int number){
 }
 
 int main(){
-    Dato *start=NULL;
+    struct Dato *start=NULL;
     int repeat=1;
     while(repeat){
         int number=0;
