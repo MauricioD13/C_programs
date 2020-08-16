@@ -46,7 +46,7 @@ int main(){
 
 
     int quantity;
-    printf("CODIGO PARA ORDENAR NUMEROS A PARTIR DE APUNTADORES \n")
+    printf("CODIGO PARA ORDENAR NUMEROS A PARTIR DE APUNTADORES \n");
     printf("Introduzca una cantidad: ");
     scanf("%d",&quantity);
     quantity+=1;
