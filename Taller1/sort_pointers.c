@@ -20,25 +20,28 @@ void sort(int **pointers,int *quantity){
 
 }
 void generate(int *vector,int *quantity,int **pointers){
-    int cont;
-    printf("--------GENERATE--------\n");
-    for(cont=1;cont<*quantity;cont++){
-        *(pointers+cont)=vector+cont; 
+    printf("--------GENERATE-------- \n",*quantity);
+    for(int cont=1;cont<*quantity;cont++){
+        *(pointers+cont)=(vector+cont); 
         *(vector+cont)=rand()%100;        
     }
 
 }
 
 int main(){
+
     srand(time(NULL));
     int quantity;
     printf("Introduzca una cantidad ");
     scanf("%d",&quantity);
-    int **pointers=(int**)malloc(quantity*sizeof(long));
-    int *vector=(int *)malloc(quantity*sizeof(long));
+    //Asignacion de memoria dinamica
+    int **pointers=(int**)malloc(quantity*sizeof(int*));
+    int *vector=(int *)malloc(quantity*sizeof(int));
+    
     if(vector==NULL||pointers==NULL){
         printf("Hubo un problema con la asignacion de memoria");
     }
+
     printf("vector inicial: %5p, pointers inicial: %5p  \n",vector,pointers);
     generate(vector,&quantity,pointers);
     printf("------BEFORE SORT-------\n");
