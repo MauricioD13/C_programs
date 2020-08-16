@@ -6,8 +6,6 @@
 //Carrera: Ingenieria electronica
 
 
-=======
->>>>>>> a467dae8aa2f43f535b78d42d9306b8b27d62336
 //Funcion para ordenar 
 void sort(int **pointers,int *quantity){
     int *aux=NULL;
