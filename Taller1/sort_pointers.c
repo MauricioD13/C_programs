@@ -70,4 +70,6 @@ int main(){
     for(int j=1;j<quantity;j++){
         printf("Enteros a partir de vector %d, \t Enteros a partir de pointers: %d \n",*(vector+j),**(pointers+j));
     }
+    free(vector);
+    free(pointers);
 }
