@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "perrin.h"
-
+//Autor: Mauricio David Cuello Alzate
+//Carrera: Ingenieria Electronica
+//Compilado en VS y con gcc en cmd
 int main(){
     
     int number=0;
