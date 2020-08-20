@@ -1,4 +1,5 @@
 *.exe
+*.pdf
 .vscode/
 c_programs_examples/
 Personal/
