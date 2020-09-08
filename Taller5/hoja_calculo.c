@@ -5,7 +5,7 @@
 void print_matrix(char ***matrix){
     for(int i=0;i<5;i++){
         for(int j=0;j<5;j++){
-            printf("%s\t\t",*(*(matrix+j)+i));       
+            printf("%s \t\t",*(*(matrix+j)+i));       
         }
         printf("\n");
     }
@@ -14,7 +14,11 @@ void print_matrix(char ***matrix){
 void generate_matrix(char ***matrix){
     for(int i=0;i<5;i++){
         char **row=malloc(5*sizeof(char*));
+        for(int i=0;i<5;i++){
+                *(row+i)=0;
+        }
         *(matrix+i)=row;
+
     }
 }
 
@@ -25,6 +29,8 @@ int main(){
     char *p;
     char *q;
     char *z;
+    char *y;
+    
     char *copy;
     
     char ***matrix=malloc(5*sizeof(entry));
@@ -51,8 +57,17 @@ int main(){
     printf("q: %s \n",q);
     z=strtok(q," ");
     printf("z: %s \n",z);
-    if(z-1=="A"){
+    y=strtok(z,"2");
+    char *compare="A,B,C";
+    
+    //Hacer especie de diccionario para las equivalencias con la columna, strcmp funciono
+    
+    char *c=y;
+    printf("y:%s compare:%s strcm,p:%d\n",y,compare2,(strcmp(c,compare2)));
+    if(!(strcmp(c,compare))){
         printf("SON IGUALES");
+    }else{
+        printf(":(");
     }
     
 
