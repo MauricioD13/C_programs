@@ -21,7 +21,14 @@ void generate_matrix(char ***matrix){
 
     }
 }
-
+/*  1. Crear matriz $
+    2. Introduccior valores en la matriz  $
+    3. Distinguir celda con numeros o con ecuaciones -> Comparacion de strings despues de strtok $
+    4. Si es una ecuacion saber cuantos valores tiene $
+    5. Separa cada valor para saber a que celda esta haciendo referencia 
+    6. Distinguir si lo valores en la celda referenciada son un ecuación o un entero
+    7. Hacer la operacion
+*/
 int main(){
     //char dicc[]={"A","B","C"};
     char entry[200];
@@ -30,7 +37,7 @@ int main(){
     char *q;
     char *z;
     char *y;
-    
+    char *rest;
     char *copy;
     
     char ***matrix=malloc(5*sizeof(entry));
@@ -55,19 +62,21 @@ int main(){
     printf("p: %s \n",p);
     q=strtok(NULL,"+");
     printf("q: %s \n",q);
-    z=strtok(q," ");
+    z=strtok_r(q," ",&rest);
     printf("z: %s \n",z);
+    printf("rest: %s\n",rest);
     y=strtok(z,"2");
+    
     char *compare="A,B,C";
     
     //Hacer especie de diccionario para las equivalencias con la columna, strcmp funciono
     
-    char *c=y;
-    printf("y:%s compare:%s strcm,p:%d\n",y,compare2,(strcmp(c,compare2)));
-    if(!(strcmp(c,compare))){
-        printf("SON IGUALES");
+    //char *compare2=strtok(*compare,",");
+    //printf("y: %s compare:%s \n",y,compare2);
+    if(!(strcmp(y,compare))){
+        printf("SON IGUALES\n");
     }else{
-        printf(":(");
+        printf(":(\n");
     }
     
 
