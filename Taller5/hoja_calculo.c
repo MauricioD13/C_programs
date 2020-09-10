@@ -21,6 +21,83 @@ void generate_matrix(char ***matrix){
 
     }
 }
+int detect_type(char* cell){
+    char *result=malloc(sizeof(cell));
+    result=strtok(cell,"=");
+    if(!(strcmp(cell,result))){
+        return 1; //Numero
+    }else
+    {
+        return 2; //Ecuacion
+    }
+}
+int terms_quantity(char* cell){
+    char *token=malloc(sizeof(cell));
+    char *copy=malloc(sizeof(cell));
+    strcpy(copy,cell);
+    token=strtok(copy," ");
+    int cont=0;
+    while(token!=NULL){
+        token=strtok(NULL,"+");
+        cont++;  
+        }
+    return cont;
+}
+
+int search(char *cell,int *values){
+    char *alfa="A\0B\0C\0";
+    char *result=malloc(sizeof(cell));
+    char *token=malloc(sizeof(char));
+    char *copy=malloc(sizeof(char));
+    for(int i=0;i<3;i++){
+        for(int j=0;j<5;j++){
+            snprintf(result,10,"%d",j+1);
+            strcpy(copy,cell);
+            token=strtok(copy,result);
+            if(!(strcmp(alfa+(i*2),token))){
+                *(values)=i;
+                *(values)=j;
+                return 1;
+            }
+        }
+    }
+}
+void searching_complete(char ***matrix,char *cell){
+    int option;
+    char *copy=malloc(sizeof(cell));
+    char *token;
+    option=detect_type(cell);
+    if(option==1){
+        printf("Es un numero\n");
+    }
+    else{
+        //Es una ecuacion
+        int quantity=terms_quantity(cell);
+        int *values=malloc(2*sizeof(int));
+        
+        printf("Cantidad de terminos: %d\n",quantity);
+        strcpy(copy,cell);
+        token=strtok(copy,"=");
+        char* complete=malloc(sizeof(token));
+        token=strtok(token," ");
+        char* chunk=malloc(sizeof(token));
+        printf("TOKEN:%s|\n",token);
+        char **terms=malloc(quantity*sizeof(token));
+        int cont=1;
+        *(terms)=token;
+        while(token!=NULL){
+            token=strtok(NULL,"+");
+            if(token!=NULL){
+                *(terms+cont)=token+1;
+                cont++;  
+            }
+        }
+        for(int i=0;i<quantity;i++){
+            printf("terms:%s|\n",*(terms+i));
+            search(*(terms+i),values);
+        }
+    }
+}
 /*  1. Crear matriz $
     2. Introduccior valores en la matriz  $
     3. Distinguir celda con numeros o con ecuaciones -> Comparacion de strings despues de strtok $
@@ -44,7 +121,6 @@ int main(){
     //*(*(matrix+columna)+fila)
     generate_matrix(matrix);
     **matrix="10";
-    *(*matrix+1)="40";
     *(*(matrix+1))="34";
     *(*(matrix+1)+1)="17";
     *(*(matrix+2)+0)="37";
@@ -56,30 +132,12 @@ int main(){
     *(*(matrix+3)+0)="=A1 + B1 + C1";
     *(*(matrix+3)+1)="=A2 + B2 + C2";
     print_matrix(matrix);
-    strcpy(copy,*(*(matrix+0)+2));
-    p=strtok(copy,"=");
-    p=strtok(p,"+");
-    printf("p: %s \n",p);
-    q=strtok(NULL,"+");
-    printf("q: %s \n",q);
-    z=strtok_r(q," ",&rest);
-    printf("z: %s \n",z);
-    printf("rest: %s\n",rest);
-    y=strtok(z,"2");
     
-    char *compare="A,B,C";
-    
-    //Hacer especie de diccionario para las equivalencias con la columna, strcmp funciono
-    
-    //char *compare2=strtok(*compare,",");
-    //printf("y: %s compare:%s \n",y,compare2);
-    if(!(strcmp(y,compare))){
-        printf("SON IGUALES\n");
-    }else{
-        printf(":(\n");
-    }
-    
-
-
-    
+    for(int i=0;i<5;i++){
+        for(int j=0;j<5;j++){
+            if(*(*(matrix+j)+i)!=NULL){
+                searching_complete(matrix,*(*(matrix+j)+i));
+            }
+        }
+    } 
 }

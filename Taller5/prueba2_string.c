@@ -27,7 +27,7 @@ int main(){
     if(!(strcmp(A,strtok(A2,result2)))){
         printf("Soy un DIOS\n");
     }
-    printf("alfa: %s\n",alfa+4);
+    printf("alfa: %s\n",alfa);
     
     
 
