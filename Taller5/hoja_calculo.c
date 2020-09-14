@@ -55,14 +55,14 @@ int search(char *cell,int *values){
             strcpy(copy,cell);
             token=strtok(copy,result);
             if(!(strcmp(alfa+(i*2),token))){
-                *(values)=i;
-                *(values)=j;
+                *(values)=i; //Columna
+                *(values+1)=j;//Fila
                 return 1;
             }
         }
     }
 }
-void searching_complete(char ***matrix,char *cell){
+int searching_complete(char ***matrix,char *cell){
     int option;
     char *copy=malloc(sizeof(cell));
     char *token;
@@ -74,14 +74,15 @@ void searching_complete(char ***matrix,char *cell){
         //Es una ecuacion
         int quantity=terms_quantity(cell);
         int *values=malloc(2*sizeof(int));
+        int *results=malloc(quantity*sizeof(int));
         
-        printf("Cantidad de terminos: %d\n",quantity);
+        //printf("Cantidad de terminos: %d\n",quantity);
         strcpy(copy,cell);
         token=strtok(copy,"=");
         char* complete=malloc(sizeof(token));
         token=strtok(token," ");
         char* chunk=malloc(sizeof(token));
-        printf("TOKEN:%s|\n",token);
+        //printf("TOKEN:%s|\n",token);
         char **terms=malloc(quantity*sizeof(token));
         int cont=1;
         *(terms)=token;
@@ -93,11 +94,26 @@ void searching_complete(char ***matrix,char *cell){
             }
         }
         for(int i=0;i<quantity;i++){
-            printf("terms:%s|\n",*(terms+i));
-            search(*(terms+i),values);
+            int number;
+            int convert=atoi(*(terms+i));
+            if(!convert){
+                search(*(terms+i),values);
+                printf("El valor de %s es: columna %d fila %d\n",*(terms+i),*values,*(values+1));
+                number=search_in_matrix(*values,*(values+1),matrix);
+            }
+            else{
+                *(results+i)=convert;
+            }
         }
     }
 }
+
+int search_in_matrix(int columns,int row,char ***matrix){
+    
+
+}
+
+
 /*  1. Crear matriz $
     2. Introduccior valores en la matriz  $
     3. Distinguir celda con numeros o con ecuaciones -> Comparacion de strings despues de strtok $
