@@ -24,26 +24,11 @@ int terms_quantity(char* cell){
     return cont;
 }
 
-int search(char *cell,int *values){
-    char *alfa="A\0B\0C\0";
-    char *result=malloc(sizeof(cell));
-    char *token=malloc(sizeof(char));
-    char *copy=malloc(sizeof(char));
-    for(int i=0;i<3;i++){
-        for(int j=0;j<5;j++){
-            snprintf(result,10,"%d",j+1);
-            strcpy(copy,cell);
-            token=strtok(copy,result);
-            if(!(strcmp(alfa+(i*2),token))){
-                *(values)=i;
-                *(values)=j;
-                return 1;
-            }
-        }
-    }
+void search(char *token){
+        
 }
 int main(){
-    char *y="=A1 + C2 + B3";
+    char *y="=A1 + A2 + A3 + A3 + B4";
     int option;
     char *copy=malloc(sizeof(y));
     char *token;
@@ -54,28 +39,22 @@ int main(){
     else{
         //Es una ecuacion
         int quantity=terms_quantity(y);
-        int *values=malloc(2*sizeof(int));
-        
+        int *values=malloc(quantity*sizeof(int));
         printf("Cantidad de terminos: %d\n",quantity);
         strcpy(copy,y);
         token=strtok(copy,"=");
-        char* complete=malloc(sizeof(token));
-        token=strtok(token," ");
-        char* chunk=malloc(sizeof(token));
-        printf("TOKEN:%s|\n",token);
-        char **terms=malloc(quantity*sizeof(token));
-        int cont=1;
-        *(terms)=token;
+        printf("token: %s\n",token);
+        token=strtok(token,"+");
+        char *string_values=malloc(quantity*sizeof(token));
+        int cont=0;
         while(token!=NULL){
+            printf("TOKEN:%s\n",token);
+            
             token=strtok(NULL,"+");
-            if(token!=NULL){
-                *(terms+cont)=token+1;
-                cont++;  
-            }
+            cont++;  
         }
         for(int i=0;i<quantity;i++){
-            printf("terms:%s|\n",*(terms+i));
-            search(*(terms+i),values);
+            printf("string values: %s\n",(string_values));
         }
     }
     
