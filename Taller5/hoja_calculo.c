@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+/*  Autor: Mauricio David Cuello Alzate
+    Carrera: Ingenieria Electronica
+    Compilador: gcc 
+    Repositorio: https://minerva.javeriana.edu.co/mdavid_cuello/c_programs.git */
 
-void print_matrix(char ***matrix){
+    
+void print_matrix(char ***matrix){//Imprime la matriz
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             printf("%s \t\t",*(*(matrix+j)+i));       
@@ -10,8 +15,7 @@ void print_matrix(char ***matrix){
         printf("\n");
     }
 }
-
-void generate_matrix(char ***matrix){
+void generate_matrix(char ***matrix){//Genera la matriz de cadenas de caracteres
     for(int i=0;i<4;i++){
         char **row=malloc(4*sizeof(char*));
         for(int j=0;j<4;j++){
@@ -21,7 +25,7 @@ void generate_matrix(char ***matrix){
 
     }
 }
-int detect_type(char* cell){
+int detect_type(char* cell){//Detecta que tipo de dato esta en la celda, numero o 
     char *result=malloc(sizeof(cell));
     result=strtok(cell,"=");
     if(!(strcmp(cell,result))){
@@ -31,7 +35,7 @@ int detect_type(char* cell){
         return 2; //Ecuacion
     }
 }
-int terms_quantity(char* cell){
+int terms_quantity(char* cell){//Cantidad de terminos de la formula o ecuacion
     char *token=malloc(sizeof(cell));
     char *copy=malloc(sizeof(cell));
     strcpy(copy,cell);
@@ -44,7 +48,7 @@ int terms_quantity(char* cell){
     return cont;
 }
 
-int search(char *cell,int *values){
+int search(char *cell,int *values){//Toma el termino ingresado y busca la celda a la que se refiere
     char *alfa="A\0B\0C\0";
     char *result=malloc(sizeof(cell));
     char *token=malloc(sizeof(char));
@@ -62,7 +66,14 @@ int search(char *cell,int *values){
         }
     }
 }
+
 int searching_complete(char ***matrix,char *cell){
+/*Si la funcion detect_type devuelve 1 es un numero sino es formula
+Si es una formula se busca la cantidad de terminos que tiene la formula
+Luego se separan (tokenizado) los terminos 
+Se evalua cada termino haciendo conversion a entero, si es un numero diferente de 0 es un entero
+Si es un termino que se refiere a otro entonces se entra a la funcion search
+Se van sumando los terminos que se tienen*/
     int option;
     char *copy=malloc(sizeof(cell));
     char *token;
@@ -101,7 +112,6 @@ int searching_complete(char ***matrix,char *cell){
             
             if(!convert){
                 search(*(terms+i),values);
-                //printf("El valor de %s es: columna %d fila %d\n",*(terms+i),*values,*(values+1));
                 number=*(*(matrix+(*values))+(*(values+1)));
                 *(results+i)=atoi(number);
                 total=*(results+i)+total;
@@ -117,7 +127,7 @@ int searching_complete(char ***matrix,char *cell){
     }
 }
 
-void strcpy_matrix(char ***matrix_from,char ***matrix_to){
+void strcpy_matrix(char ***matrix_from,char ***matrix_to){//Funcion para copiar matriz de cadenas de caracteres
     for(int i=0;i<4;i++){
         for(int j=0;j<4;j++){
             *(*(matrix_to+j)+i)=*(*(matrix_from+j)+i);
