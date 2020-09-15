@@ -3,8 +3,8 @@
 #include <string.h>
 
 void print_matrix(char ***matrix){
-    for(int i=0;i<5;i++){
-        for(int j=0;j<5;j++){
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
             printf("%s \t\t",*(*(matrix+j)+i));       
         }
         printf("\n");
@@ -12,10 +12,10 @@ void print_matrix(char ***matrix){
 }
 
 void generate_matrix(char ***matrix){
-    for(int i=0;i<5;i++){
-        char **row=malloc(5*sizeof(char*));
-        for(int i=0;i<5;i++){
-                *(row+i)=0;
+    for(int i=0;i<4;i++){
+        char **row=malloc(4*sizeof(char*));
+        for(int j=0;j<4;j++){
+                *(row+j)=0;
         }
         *(matrix+i)=row;
 
@@ -68,7 +68,8 @@ int searching_complete(char ***matrix,char *cell){
     char *token;
     option=detect_type(cell);
     if(option==1){
-        printf("Es un numero\n");
+        //printf("Es un numero\n");
+        return 0;
     }
     else{
         //Es una ecuacion
@@ -85,6 +86,7 @@ int searching_complete(char ***matrix,char *cell){
         //printf("TOKEN:%s|\n",token);
         char **terms=malloc(quantity*sizeof(token));
         int cont=1;
+        int total=0;
         *(terms)=token;
         while(token!=NULL){
             token=strtok(NULL,"+");
@@ -94,24 +96,37 @@ int searching_complete(char ***matrix,char *cell){
             }
         }
         for(int i=0;i<quantity;i++){
-            int number;
+            char *number;
             int convert=atoi(*(terms+i));
+            
             if(!convert){
                 search(*(terms+i),values);
-                printf("El valor de %s es: columna %d fila %d\n",*(terms+i),*values,*(values+1));
-                number=search_in_matrix(*values,*(values+1),matrix);
+                //printf("El valor de %s es: columna %d fila %d\n",*(terms+i),*values,*(values+1));
+                number=*(*(matrix+(*values))+(*(values+1)));
+                *(results+i)=atoi(number);
+                total=*(results+i)+total;
             }
             else{
                 *(results+i)=convert;
+                total=*(results+i)+total;
             }
+            
+        }
+        return total;
+        
+    }
+}
+
+void strcpy_matrix(char ***matrix_from,char ***matrix_to){
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
+            *(*(matrix_to+j)+i)=*(*(matrix_from+j)+i);
         }
     }
 }
 
-int search_in_matrix(int columns,int row,char ***matrix){
-    
 
-}
+
 
 
 /*  1. Crear matriz $
@@ -124,20 +139,15 @@ int search_in_matrix(int columns,int row,char ***matrix){
 */
 int main(){
     //char dicc[]={"A","B","C"};
-    char entry[200];
-    
-    char *p;
-    char *q;
-    char *z;
-    char *y;
-    char *rest;
-    char *copy;
-    
-    char ***matrix=malloc(5*sizeof(entry));
+    char entry[100];
+        
+    char ***matrix=malloc(4*sizeof(entry));
+    char ***total_matrix=malloc(4*sizeof(entry));
     //*(*(matrix+columna)+fila)
     generate_matrix(matrix);
+    generate_matrix(total_matrix);
     **matrix="10";
-    *(*(matrix+1))="34";
+    *(*(matrix+1)+0)="34";
     *(*(matrix+1)+1)="17";
     *(*(matrix+2)+0)="37";
     *(*(matrix+0)+1)="40";
@@ -148,12 +158,27 @@ int main(){
     *(*(matrix+3)+0)="=A1 + B1 + C1";
     *(*(matrix+3)+1)="=A2 + B2 + C2";
     print_matrix(matrix);
+    strcpy_matrix(matrix,total_matrix);
     
-    for(int i=0;i<5;i++){
-        for(int j=0;j<5;j++){
+    int total=0;
+    
+    for(int i=0;i<4;i++){
+        for(int j=0;j<4;j++){
             if(*(*(matrix+j)+i)!=NULL){
-                searching_complete(matrix,*(*(matrix+j)+i));
+                total=searching_complete(matrix,*(*(matrix+j)+i));
+                
+                if(total!=0){
+                    char *value_matrix=malloc(sizeof(entry));
+                    snprintf(value_matrix,10,"%d",total);
+                    
+                    *(*(total_matrix+j)+i)=value_matrix;
+                    
+                }
             }
+            
         }
+        
     } 
+    printf("-------RESULT------------\n");
+    print_matrix(total_matrix);
 }
