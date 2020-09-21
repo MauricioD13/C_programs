@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*Autor: Mauricio David Cuello Alzate
+    Carrera: Ing. Electronica  
+    Repositorio:https://minerva.javeriana.edu.co/mdavid_cuello/c_programs.git
+*/
 struct PERSON
 {   
     int ID;
