@@ -16,6 +16,7 @@ int main(){
     *(first->month)=12;
     *(first->year)=1998;
     printf("dia: %d, mes: %d, año: %d \n", *(first->day),*(first->month),*(first->year));
+    printf("probando vim\n");
     free(first->day);
     free(first->month);
     free(first->year);

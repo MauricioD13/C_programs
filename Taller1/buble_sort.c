@@ -18,6 +18,6 @@ int main(){
         }
     }
     for(int i=0;i<5;i++){
-        printf("vector en la posicion %d tiene el valor %d \n",i,vector[i]);
+      printf("vector en la posicion %d tiene el valor %d \n",i,vector[i]);
     }
 }
