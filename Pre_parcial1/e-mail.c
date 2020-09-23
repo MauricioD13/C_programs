@@ -36,18 +36,17 @@ int main(){
 		struct INBOX *inbox=malloc(sizeof(struct INBOX));
 		inbox->address=address;
 		print_inbox(inbox);
-		
+		*(inboxes)=inbox;	
 	}
 	if(option==1){//Enviar correo
 		struct MAIL *mail=malloc(sizeof(struct MAIL));
 		char *message="Hola Mundo mucho gusto";
-		char *from="mauricio@pc.com"
-		char *to="mariana@pc.com"
+		char *from="mauricio@pc.com";
+		char *to="mariana@pc.com";
 		mail->message=message;
 		mail->from=from;
 		mail->to=to;
-
-		
+		(*(inboxes))->sended_mails=mail;
 		
 	}
 	

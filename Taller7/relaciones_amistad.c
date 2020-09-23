@@ -65,7 +65,7 @@ void print_person(struct PERSON *person){
 
 void append_friend(char* person_list,char* person_to_append,struct PERSON **cluster,int cont){
     for(int i=0;i<cont;i++){
-    	int value=i;
+    	
         if(!strcmp((*(cluster+i))->cedula,person_list)){
 		for(int j=0;j<cont;j++){
         		if(!strcmp((*(cluster+j))->cedula,person_to_append)){
@@ -85,6 +85,7 @@ void print_friends(struct PERSON **cluster,int cont,char *person){
 				int number;
 				number=*(((*(cluster+i))->IDs)+j);
 				print_person(*(cluster+number));
+				
 			}
 
 		}
@@ -122,7 +123,7 @@ int main(){
             printf("Person_list:%s\n",person_list);
             append_friend(person_list,person_to_append,cluster,cont);
             printf("Amigo:%d,size:%d\n",*((*(cluster))->IDs),(*(cluster))->size);
-
+	
         }
 	if(option==4){
 		char *person=malloc(10*sizeof(char));
