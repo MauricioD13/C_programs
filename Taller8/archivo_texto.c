@@ -4,7 +4,7 @@
 /*Nombre: Mauricio David Cuello Alzate
   Carrera: Ing Electronica
   compilador: gcc en terminal
-  Nota: El archivo de entrada esta separado por ";"
+  Nota: El archivo de entrada esta separado por ";" y la cantidad de elementos a leer y escribir de estar hardcodeada
 */
 typedef struct REGISTRO {
     int *ID;
