@@ -73,11 +73,11 @@ char* evaluar(float x){
     return result;
 
 }
-void imprimir(char *strings[3],REGISTRO **tabla_registros){
+void imprimir(char *strings[3],REGISTRO **tabla_registros,int n){
     FILE *nuevo_archivo;
     nuevo_archivo=fopen("sort_notes.txt","w");
-    for(int j=0;j<3;j++){
-        for(int i=0;i<3;i++){
+    for(int j=0;j<n;j++){
+        for(int i=0;i<n;i++){
             int result = strcmp(((*(tabla_registros+i))->nombre),strings[j]);
             if(!result){
                 char* printed=malloc(100*sizeof(char));
@@ -112,6 +112,7 @@ void imprimir(char *strings[3],REGISTRO **tabla_registros){
 
  
 int main(){
+    int n=3; //Cantidad de elementos
     FILE *archivo;
     REGISTRO **tabla_registros=malloc(10*sizeof(REGISTRO*));
     char *linea=malloc(100*sizeof(char));
@@ -132,11 +133,10 @@ int main(){
         *(tabla_registros+cont)=registro;
         cont+=1;
     }
-    //print_registros(tabla_registros,cont);
-    //printf("Nombre0:%s\n",((*(tabla_registros))->nombre)+1);
-    //printf("Nombre1:%s\n",((*(tabla_registros+2))->nombre)+1);
-    char *strings[3];
-    for(int i=0;i<3;i++){
+    print_registros(tabla_registros,cont);
+    
+    char *strings[n];
+    for(int i=0;i<n;i++){
         char *copy=malloc(sizeof(char*));
         char *token=malloc(sizeof(char*));
         strings[i]=((*(tabla_registros+i))->nombre);
@@ -144,7 +144,7 @@ int main(){
     size_t strings_len = sizeof(strings) / sizeof(char *);
     qsort(strings, strings_len, sizeof(char *),comparar);
     
-    imprimir(strings,tabla_registros);
+    imprimir(strings,tabla_registros,n);
     
     
     fclose(archivo);
