@@ -12,6 +12,13 @@ typedef struct REGISTRO {
     float *nota;
 }REGISTRO;
 
+typedef struct CANDITATO
+{
+    char *ID;
+    char *names;
+    char *ciudad;
+    char *planes;
+};
 
 
 void llenar(REGISTRO *entrada,char *linea){

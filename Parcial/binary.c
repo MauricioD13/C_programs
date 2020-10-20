@@ -17,7 +17,7 @@ int main(){
 	int cont=0;
 	int number=0;
 	
-	int **numbers=malloc(sizeof(int*));
+	int **numbers=malloc(100*sizeof(int*));
 	while(number!=9){
 		printf("Numero:");
 		scanf("%d",&number);	

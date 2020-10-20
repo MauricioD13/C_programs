@@ -1,0 +1,6 @@
+mesa 1,100,350
+mesa 2,100,67
+mesa 3,101,123
+mesa 1,102,2
+mesa 1,blancos,90
+mesa 1,nulos,200
