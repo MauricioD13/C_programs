@@ -26,7 +26,7 @@ int main()
         printf("Error in creating the file\n");
         exit(1);
     }
-    
+    int temp;
     
     for(int i = 0;i<3;i++){
         length = strlen(ID[i]);
@@ -40,7 +40,10 @@ int main()
         fwrite(",",sizeof(char),1,fp);
         length = strlen(planes[i]);
         fwrite(planes[i],sizeof(char),length,fp);
-        fwrite("\n",sizeof(char),1,fp);
+        temp=ftell(fp);
+        printf("ftell antes:%d\n",temp);
+        fseek(fp,(50*(i+1))-temp,SEEK_CUR);
+        printf("ftell:%d\n",ftell(fp));
         
     }
     fflush(fp);
