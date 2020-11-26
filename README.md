@@ -1,5 +1,3 @@
 # C programs
 
-Una prueba del uso de gitlab
-Algunos programas para poder recordar la programacion en C
-Se va a usar para intercambiar archivos entre sistemas operativos 
+Programas realizados en la materia de programacion de computadores: Talleres y Parciales

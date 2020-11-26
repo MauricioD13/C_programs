@@ -3,9 +3,14 @@
 #include <cstdlib>
 #include "listas.cpp"
 
+typedef struct JUGADOR
+{
+    char *nombre;
+    int ubicacion_tablero;
+}JUGADOR;
 typedef struct CASILLA{
 
-    Lista<char> *jugadores;
+    Lista<JUGADOR> *jugadores;
     Nodo<CASILLA> *cambio;
     int tipo;
 
@@ -15,8 +20,8 @@ void generar(Lista <CASILLA> *tablero){
     
     for(int i=0;i<25;i++){
         CASILLA casilla;
-        Lista <char> *jugadores;
-        jugadores = crearLista<char>();
+        Lista <JUGADOR> *jugadores;
+        jugadores = crearLista<JUGADOR>();
         casilla.jugadores = jugadores;
         casilla.cambio = NULL;
         casilla.tipo = 0;
@@ -33,20 +38,32 @@ void imprimir_tablero(Lista <CASILLA> *tablero){
     int i=1;
     cout<<"------------------------------------------\n";
     while(iterador!=NULL){
-        if(iterador->info.cambio==NULL){
+        /*if(iterador->info.cambio==NULL){
             cout<<"-\t";
         }
         else{
             
             cout<<iterador->info.tipo<<"\t";
+        }*/
+        if(iterador->info.jugadores->cab==NULL){
+            cout<<"-\t";
+        }
+        else{
+            Nodo <JUGADOR> *iterador_jugadores;
+            iterador_jugadores = iterador->info.jugadores->cab;
+            while(iterador_jugadores!=NULL){
+                cout<<iterador_jugadores->info.nombre;
+                iterador_jugadores = iterador_jugadores->sig;
+            }
+            cout<<"\t";
         }
         if(i%5==0){
-            cout<<"\n";
+            cout<<"\n\n";
         }
         iterador = iterador -> sig;
         i++;
     }
-    cout<<"\n";
+    cout<<"\n\n";
 }
 
 void buscador(Lista <CASILLA> *tablero,int target,Nodo <CASILLA> *objetivo){
@@ -99,21 +116,51 @@ void escaleras_serpientes(Lista <CASILLA> *tablero){
 }
 
 
-void agregar_jugadores(Lista<char> *jugadores_global){
+void agregar_jugadores(Lista<JUGADOR> *jugadores_global){
     int option=1;
-    char temp;
-    
+    char *temp;
+    JUGADOR *jugador;
+    int i=0;
     while(option==1){
+        jugador = new JUGADOR;
+        temp = new char[2];
+        if(i==4){
+            cout<<"A llegado al maximo de jugadores"<<endl;
+            break;
+        }
         cout<<"Agregar una letra para el jugador"<<endl;
-        cin>>temp;
-        insertar(jugadores_global,temp);
+        cin>>*temp;
+        jugador->nombre = temp;
+        insertar(jugadores_global,*jugador);
+        
         cout<<"¿Agregar otro jugador?"<<endl;
         cout<<"[1] Si\t[2] No"<<endl;
         cin>>option;
+        i++;
+        cout<<"-----------------------------------------------\n";
+        
+    
     }
     
 }
-
+void posicionar_jugadores(Lista<CASILLA> *tablero, Lista<JUGADOR> *jugadores_global,int *turnos){
+    char *jugador = new char[2];
+    Nodo <JUGADOR> *iterador;
+    
+    iterador = jugadores_global->cab;
+    
+    if(*turnos == 0){
+        int i=0;
+        while(iterador!=NULL){
+            JUGADOR *temp = new JUGADOR;
+            *temp = obtenerDato(jugadores_global,i);
+            temp->ubicacion_tablero = i;
+            insertar(tablero->cab->info.jugadores,*temp);
+            iterador = iterador->sig;
+            i++;
+        }
+    }
+}
 /*void mecanica_juego(Lista <CASILLA> *tablero){
     
 }*/
@@ -121,14 +168,18 @@ void agregar_jugadores(Lista<char> *jugadores_global){
 
 
 int main(){
+    //Inicializar srand con el tiempo para que los numero sean aletorios
+    int turnos=0;
     srand(time(NULL));
     Lista <CASILLA> *tablero;
     tablero = crearLista<CASILLA>();
     generar(tablero);
     escaleras_serpientes(tablero);
     imprimir_tablero(tablero);
-    Lista <char> *jugadores_global= crearLista<char>();
+    cout<<"-----------------------------------------------\n";
+    Lista <JUGADOR> *jugadores_global= crearLista<JUGADOR>();
     agregar_jugadores(jugadores_global);
-    //mecanica_juego(tablero);
-
+    posicionar_jugadores(tablero,jugadores_global,&turnos);
+    imprimir_tablero(tablero);
+    //mecanica_juego(tablero); 
 }
