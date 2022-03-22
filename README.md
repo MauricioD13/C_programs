@@ -1,3 +1,3 @@
 # C programs
+Programas desarrollados para el aprendizaje del lenguaje C
 
-Programas realizados en la materia de programacion de computadores: Talleres y Parciales
