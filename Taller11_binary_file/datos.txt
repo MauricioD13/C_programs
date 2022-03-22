@@ -1,0 +1,5 @@
+1033,Arias Mendez,Adriana,3174
+1052,Correa Cruz,Carolina,3000
+1005,Duarte Garcia,Diana Maria,3165
+1064,Sanchez Gomez,Elizabeth,3164
+1021,Zapata Diaz,Teresa,3102
